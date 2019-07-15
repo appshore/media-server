@@ -10,8 +10,7 @@ import jsonVideo from './video.json';
 jest.setTimeout(20000);
 
 describe('Search from video from Youtube', () => {
-  const options =
-    'maxResults=1&order=relevance&safeSearch=strict&type=video&videoDuration=short';
+  const options = 'maxResults=1&order=relevance&safeSearch=strict&type=video&videoDuration=short';
   const search = 'sailboat';
 
   beforeEach(() => {

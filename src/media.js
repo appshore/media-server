@@ -41,8 +41,7 @@ const searchImages = async ({ search }) => {
  */
 const searchVideo = async ({ search }) => {
   const url = 'https://www.googleapis.com';
-  const options =
-    'maxResults=1&order=relevance&safeSearch=strict&type=video&videoDuration=short';
+  const options = 'maxResults=1&order=relevance&safeSearch=strict&type=video&videoDuration=short';
 
   try {
     const {

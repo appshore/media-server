@@ -14,9 +14,9 @@ app.use(cors());
 // for REST only endpoints
 app.use('/*', (req, res, next) => {
   if (
-    req.headers &&
-    (req.headers.accept === 'application/json' ||
-      req.headers['content-type'] === 'application/json')
+    req.headers
+    && (req.headers.accept === 'application/json'
+      || req.headers['content-type'] === 'application/json')
   ) {
     next();
   } else {
