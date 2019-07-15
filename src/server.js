@@ -3,7 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 
-import getMedia from './media';
+import { getMedia } from './media';
 
 const app = express();
 
@@ -41,4 +41,3 @@ app.listen(process.env.PORT, () => {
   /* eslint-disable no-console */
   console.log(`Server listening on port ${process.env.PORT}`);
 });
-
