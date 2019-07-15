@@ -33,7 +33,7 @@ app.get(`/${process.env.API}/media/:search`, async (req, res) => {
 });
 
 // catch all for unknown endpoints
-app.all(`/*`, (req, res) => {
+app.all('/*', (req, res) => {
   res.status(422).send({ status: 'error', message: 'Unknown endpoint' });
 });
 
