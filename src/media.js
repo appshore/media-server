@@ -5,15 +5,19 @@ import got from 'got';
  * @param {*} search
  */
 const searchImages = async ({ search }) => {
-  const url = 'https://www.flickr.com/services/feeds/photos_public.gne';
+  const url = 'https://www.flickr.com';
   const options = 'format=json&nojsoncallback=1';
 
   try {
     const {
       body: { items }
-    } = await got(`${url}?${options}&tags=${search}`, { json: true });
+    } = await got(
+      `${url}/services/feeds/photos_public.gne?${options}&tags=${search}`,
+      { json: true }
+    );
 
     if (items) {
+      // only the first 3 images
       return {
         images: items.slice(0, 3).map(item => {
           const {
