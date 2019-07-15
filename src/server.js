@@ -11,18 +11,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// for REST only endpoints
-app.use('/*', (req, res, next) => {
-  if (
-    req.headers
-    && (req.headers.accept === 'application/json'
-      || req.headers['content-type'] === 'application/json')
-  ) {
-    next();
-  } else {
-    res.status(422).send({ status: 'error', message: 'Invalid API' });
-  }
-});
+// uncomment to limit to REST only endpoints
+// app.use('/*', (req, res, next) => {
+//   if (
+//     req.headers
+//     && (req.headers.accept === 'application/json'
+//       || req.headers['content-type'] === 'application/json')
+//   ) {
+//     next();
+//   } else {
+//     res.status(422).send({ status: 'error', message: 'Invalid API' });
+//   }
+// });
 
 app.get(`/${process.env.API}/media/:search`, async (req, res) => {
   const {
