@@ -40,7 +40,7 @@ const searchImages = async ({ search }) => {
  * @param {*} search
  */
 const searchVideo = async ({ search }) => {
-  const url = 'https://www.googleapis.com/youtube/v3/search';
+  const url = 'https://www.googleapis.com';
   const options =
     'maxResults=1&order=relevance&safeSearch=strict&type=video&videoDuration=short';
 
@@ -48,7 +48,7 @@ const searchVideo = async ({ search }) => {
     const {
       body: { items }
     } = await got(
-      `${url}?key=${
+      `${url}/youtube/v3/search?key=${
         process.env.YOUTUBE_APIKEY
       }&part=snippet,id&q=${search}&${options}`,
       {
@@ -57,23 +57,21 @@ const searchVideo = async ({ search }) => {
     );
 
     if (items) {
+      const {
+        id: { videoId },
+        snippet: {
+          title,
+          thumbnails: {
+            medium: { url: thumbnail }
+          }
+        }
+      } = items[0]; // only the first video
       return {
-        video: items.map(item => {
-          const {
-            id: { videoId },
-            snippet: {
-              title,
-              thumbnails: {
-                medium: { url: thumbnail }
-              }
-            }
-          } = item;
-          return {
-            videoId,
-            title,
-            thumbnail
-          };
-        })
+        video: {
+          videoId,
+          title,
+          thumbnail
+        }
       };
     }
     return { status: 'fail', message: 'No video' };
@@ -88,11 +86,14 @@ const searchVideo = async ({ search }) => {
  */
 const getMedia = async ({ search }) => {
   // run searches concurrently
-  const result = await Promise.all([searchImages({ search }), searchVideo({ search })]);
+  const result = await Promise.all([
+    searchImages({ search }),
+    searchVideo({ search })
+  ]);
   return {
     ...result[0],
     ...result[1]
   };
 };
 
-export default getMedia;
+export { getMedia, searchImages, searchVideo };
